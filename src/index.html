@@ -1,8 +1,15 @@
 <html lang="en-US">
 <head>
+  <title>Currency Exchanger</title>
 </head>
 <body>
-  <div>Hello world!</div>
-  <img src="/assets/images/stock-puppy-image.jpeg" alt="such a pup!">
+  <div class="container">
+    <h1>Get conversions for the US dollar</h1>
+    <img src="/assets/images/stock-puppy-image.jpeg" alt="such a pup!">
+    <label for="country-code">Enter the three letter country code</label>
+    <input id="country-code" type="text">
+    <button class="btn-success" id="currency-country-code">Get Current Conversion</button>
+    <div class="show-conversion"></div>
+  </div>
 </body>
 </html>
