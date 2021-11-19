@@ -11,10 +11,12 @@ function clearFields() {
   $('show-conversion-amount').val("");
 }
 
-function getElements(response) {
-  if (response.conversion_rates) {
+function getElements(response, countryCode) {  
+  let countryCodeInput = countryCode
+  let conversionRate = response.conversion_rates[countryCodeInput];
+  if (response.conversion_rates) {     
     console.log("how");
-    $('.show-conversion-rate').text(`The conversion rate is ${response.conversion_rates.USD}`);    
+    $('.show-conversion-rate').text(`The conversion rate is ${conversionRate}`);    
   } else {
     $('.showErrors').text(`There was an error: ${response.message}`);
   }
@@ -22,14 +24,14 @@ function getElements(response) {
 
 $(document).ready(function () {
   $('#currency-conversion').submit(function (event) {
-    event.preventDefault();
-    console.log("what");
-    // let countryCode = $('#country-code').val();
+    let countryCodeInput = $('#country-code').val();
+    console.log(countryCodeInput);
+    event.preventDefault();    
     clearFields();
     CurrencyService.getCurrency()
       .then(function(response) {
         console.log(response);
-        getElements(response);
+        getElements(response, countryCodeInput);
       });
   });
 });
