@@ -5,11 +5,16 @@
 <body>
   <div class="container">
     <h1>Get conversions for the US dollar</h1>
-    <img src="/assets/images/stock-puppy-image.jpeg" alt="such a pup!">
+    <form id="currency-conversion">
+    <!-- <img src="/assets/images/stock-puppy-image.jpeg" alt="such a pup!"> -->
     <label for="country-code">Enter the three letter country code</label>
     <input id="country-code" type="text">
-    <button class="btn-success" id="currency-country-code">Get Current Conversion</button>
-    <div class="show-conversion"></div>
+    <br><label for="usd-ammount">Enter the dollars in USD to be converted</label>
+    <input id="usd-amount" type="text">
+    <br><button type="submit" class="btn-success" id="currency-conversion">Get Current Conversion</button>
+    <div class="show-conversion-rate"></div>
+    <div class="show-conversion-amount"></div>
+    </form>
   </div>
 </body>
 </html>
