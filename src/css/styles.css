@@ -1,0 +1,18 @@
+#background {
+  background-image: url("../assets/images/money.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    height: 100%;
+}
+
+.container {    
+  background-color: beige;
+  border-width: 3px;
+  border-color: black;
+  padding: 5px;
+}
+
+h1 {
+  text-align: center;
+}
