@@ -5,15 +5,20 @@
 <body>
   <div class="container">
     <h1>Get conversions for the US dollar</h1>
-    <form id="currency-conversion">
-    <!-- <img src="/assets/images/stock-puppy-image.jpeg" alt="such a pup!"> -->
+    <form id="currency-conversion">    
     <label for="country-code">Enter the three letter country code</label>
     <input id="country-code" type="text">
+    <div class="form-check">
+      <h2>Select a currency to convert to</h2>
+      <label for="currencyChoice">UAE Dirham</label>
+      <input id="aed" value="AED" type="radio" name="countryChoice">
+    </div>
     <br><label for="usd-amount">Enter the dollars in USD to be converted</label>
     <input id="usd-amount" type="text">
     <br><button type="submit" class="btn-success" id="currency-conversion">Get Current Conversion</button>
     <div class="show-conversion-rate"></div>
     <div class="show-conversion-amount"></div>
+    <div class="showErrors"></div>
     </form>
   </div>
 </body>

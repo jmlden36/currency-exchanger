@@ -32,7 +32,7 @@ function getElements(response, countryCode, dollarAmount) {
 
 $(document).ready(function () {
   $('#currency-conversion').submit(function (event) {
-    let countryCodeInput = $('#country-code').val().toUpperCase();
+    let countryCodeInput = $("input:radio[name=countryChoice]:checked").val();
     let dollarAmountInput = parseInt($('#usd-amount').val());
     console.log(countryCodeInput);
     event.preventDefault();    
