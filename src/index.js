@@ -54,11 +54,12 @@ function getElements(response, countryCode, dollarAmount) {
   let conversionRate = response.conversion_rates[countryCodeInput];
   let convertedDollars = dollarConvert(dollarAmountInput, conversionRate);
   let countryNamePicked = countryName(countryCodeInput);
+  let currencyNamePicked = currencyName(countryCodeInput);
   console.log(countryNamePicked);
   if (response.conversion_rates) {     
     console.log("how");
-    $('.show-conversion-rate').text(`The conversion rate is 1:${conversionRate}`); 
-    $('.show-conversion-amount').text(`The converted dollar amount in ${countryNamePicked} is $${convertedDollars}`);   
+    $('.show-conversion-rate').text(`The conversion rate is $1 USD : $${conversionRate} ${currencyNamePicked}`); 
+    $('.show-conversion-amount').text(`$${dollarAmount} USD in ${countryNamePicked} is $${convertedDollars} ${currencyNamePicked}`);   
   } else {
     $('.showErrors').text(`There was an error: ${response.message}`);
   }
