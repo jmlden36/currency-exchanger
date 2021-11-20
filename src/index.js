@@ -16,13 +16,36 @@ function dollarConvert(userDollarInput, conversionRate) {
   return convertedDollar;
 }
 
-function countryName(counCode) {
+function currencyName(counCode) {
+  let currencyName = ""
   if (counCode === "AED") {
-    let countryName = "United Arab Emirates"
-    return countryName;
-  } else {
-    console.log("what?");
+    currencyName = "UAE Dirhams"    
+  } else if (counCode === "AFN") {
+    currencyName = "Afghan Afghanis";    
+  } else if (counCode === "ALL") {
+    currencyName = "Albanian Leks";  
+  } else if (counCode === "AMD") {
+    currencyName = "Armenian Drams";    
+  } else if (counCode === "ANG") {
+    currencyName = "Netherlands Antillian Guilders";    
   }
+  return currencyName;
+}
+
+function countryName(counCode) {
+  let countryName = ""
+  if (counCode === "AED") {
+    countryName = "United Arab Emirates"    
+  } else if (counCode === "AFN") {
+    countryName = "Afghanistan";    
+  } else if (counCode === "ALL") {
+    countryName = "Albania";  
+  } else if (counCode === "AMD") {
+    countryName = "Armenia";    
+  } else if (counCode === "ANG") {
+    countryName = "Netherlands Antilles";    
+  }
+  return countryName
 }
 
 function getElements(response, countryCode, dollarAmount) {  
@@ -34,7 +57,7 @@ function getElements(response, countryCode, dollarAmount) {
   console.log(countryNamePicked);
   if (response.conversion_rates) {     
     console.log("how");
-    $('.show-conversion-rate').text(`The conversion rate is ${conversionRate}`); 
+    $('.show-conversion-rate').text(`The conversion rate is 1:${conversionRate}`); 
     $('.show-conversion-amount').text(`The converted dollar amount in ${countryNamePicked} is $${convertedDollars}`);   
   } else {
     $('.showErrors').text(`There was an error: ${response.message}`);
