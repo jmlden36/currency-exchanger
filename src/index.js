@@ -16,15 +16,26 @@ function dollarConvert(userDollarInput, conversionRate) {
   return convertedDollar;
 }
 
+function countryName(counCode) {
+  if (counCode === "AED") {
+    let countryName = "United Arab Emirates"
+    return countryName;
+  } else {
+    console.log("what?");
+  }
+}
+
 function getElements(response, countryCode, dollarAmount) {  
   let countryCodeInput = countryCode;
   let dollarAmountInput = dollarAmount;
   let conversionRate = response.conversion_rates[countryCodeInput];
   let convertedDollars = dollarConvert(dollarAmountInput, conversionRate);
+  let countryNamePicked = countryName(countryCodeInput);
+  console.log(countryNamePicked);
   if (response.conversion_rates) {     
     console.log("how");
     $('.show-conversion-rate').text(`The conversion rate is ${conversionRate}`); 
-    $('.show-conversion-amount').text(`The converted dollar amount is $${convertedDollars}`);   
+    $('.show-conversion-amount').text(`The converted dollar amount in ${countryNamePicked} is $${convertedDollars}`);   
   } else {
     $('.showErrors').text(`There was an error: ${response.message}`);
   }
