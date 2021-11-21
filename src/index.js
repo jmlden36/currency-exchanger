@@ -4,6 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import CurrencyService from './services/currency-service';
 
+function notANum(userDollarInput) {  
+  if (isNaN(userDollarInput)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function clearFields() {
   $('#country-code').val("");
   $('#usd-amount').val("");
@@ -17,9 +25,9 @@ function dollarConvert(userDollarInput, conversionRate) {
 }
 
 function currencyName(counCode) {
-  let currencyName = ""
+  let currencyName = "";
   if (counCode === "AED") {
-    currencyName = "UAE Dirhams"    
+    currencyName = "UAE Dirhams";  
   } else if (counCode === "AFN") {
     currencyName = "Afghan Afghanis";    
   } else if (counCode === "ALL") {
@@ -33,9 +41,9 @@ function currencyName(counCode) {
 }
 
 function countryName(counCode) {
-  let countryName = ""
+  let countryName = "";
   if (counCode === "AED") {
-    countryName = "United Arab Emirates"    
+    countryName = "The United Arab Emirates";    
   } else if (counCode === "AFN") {
     countryName = "Afghanistan";    
   } else if (counCode === "ALL") {
@@ -45,19 +53,18 @@ function countryName(counCode) {
   } else if (counCode === "ANG") {
     countryName = "Netherlands Antilles";    
   }
-  return countryName
+  return countryName;
 }
 
 function getElements(response, countryCode, dollarAmount) {  
   let countryCodeInput = countryCode;
   let dollarAmountInput = dollarAmount;
+  console.log(dollarAmountInput);
   let conversionRate = response.conversion_rates[countryCodeInput];
   let convertedDollars = dollarConvert(dollarAmountInput, conversionRate);
   let countryNamePicked = countryName(countryCodeInput);
-  let currencyNamePicked = currencyName(countryCodeInput);
-  console.log(countryNamePicked);
-  if (response.conversion_rates) {     
-    console.log("how");
+  let currencyNamePicked = currencyName(countryCodeInput);  
+  if (response.conversion_rates) {
     $('.show-conversion-rate').text(`The conversion rate is $1 USD : $${conversionRate} ${currencyNamePicked}`); 
     $('.show-conversion-amount').text(`$${dollarAmount} USD in ${countryNamePicked} is $${convertedDollars} ${currencyNamePicked}`);   
   } else {
@@ -68,15 +75,21 @@ function getElements(response, countryCode, dollarAmount) {
 $(document).ready(function () {
   $('#currency-conversion').submit(function (event) {
     let countryCodeInput = $("input:radio[name=countryChoice]:checked").val();           
-    let dollarAmountInput = parseInt($('#usd-amount').val());
+    let dollarAmountInput = parseFloat($('#usd-amount').val());    
     console.log(countryCodeInput);
+    console.log(dollarAmountInput);
+    console.log(notANum(dollarAmountInput));
     event.preventDefault();    
-    clearFields();
-    CurrencyService.getCurrency()
-      .then(function(response) {
-        console.log(response);
-        getElements(response, countryCodeInput, dollarAmountInput);
-      });
+    clearFields();     
+    if (notANum(dollarAmountInput) === false) {       
+      CurrencyService.getCurrency()
+        .then(function(response) {
+          console.log(response);
+          getElements(response, countryCodeInput, dollarAmountInput);
+        });
+    } else {
+      $('.show-conversion-amount').text(`Please input a number to receive a conversion`);
+    } 
   });
 });
 
