@@ -58,34 +58,29 @@ function countryName(counCode) {
 function getElements(response, countryCode, dollarAmount) {  
   let countryCodeInput = countryCode;
   let dollarAmountInput = dollarAmount;
-  console.log(dollarAmountInput);
-  let conversionRate = response.conversion_rates[countryCodeInput];
-  let convertedDollars = dollarConvert(dollarAmountInput, conversionRate);
-  let countryNamePicked = countryName(countryCodeInput);
-  let currencyNamePicked = currencyName(countryCodeInput);  
   if (response.result === "success") {
+    let conversionRate = response.conversion_rates[countryCodeInput];
+    let convertedDollars = dollarConvert(dollarAmountInput, conversionRate);
+    let countryNamePicked = countryName(countryCodeInput);
+    let currencyNamePicked = currencyName(countryCodeInput);
     $('.show-conversion-rate').text(`The conversion rate is $1 USD : $${conversionRate} ${currencyNamePicked}`); 
     $('.show-conversion-amount').text(`$${dollarAmount} USD in ${countryNamePicked} is $${convertedDollars} ${currencyNamePicked}`);   
   } else {
-    $('.showErrors').text(`There was an error: ${response.message}`);
+    $('.showErrors').text(`There was an error: ${response['error-type']}`);
   }
 }
 
 $(document).ready(function () {
   $('#currency-conversion').submit(function (event) {
     let countryCodeInput = $("input:radio[name=countryChoice]:checked").val();           
-    let dollarAmountInput = parseFloat($('#usd-amount').val());    
-    console.log(countryCodeInput);
-    console.log(dollarAmountInput);
-    console.log(notANum(dollarAmountInput));
+    let dollarAmountInput = parseFloat($('#usd-amount').val());
     event.preventDefault();    
     clearFields();     
     if (notANum(dollarAmountInput) === false) {
       CurrencyService.getCurrency()
         .then(function(response) {
-          console.log(response);
           getElements(response, countryCodeInput, dollarAmountInput);
-        });
+        });        
     } else {
       $('.show-conversion-rate').text(``);
       $('.show-conversion-amount').text(`Please input a number to receive a conversion`);
