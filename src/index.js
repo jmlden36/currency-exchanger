@@ -12,12 +12,6 @@ function notANum(userDollarInput) {
   }
 }
 
-function clearFields() {  
-  $('#usd-amount').val("");
-  $('show-conversion-rate').val("");
-  $('show-conversion-amount').val("");
-}
-
 function dollarConvert(userDollarInput, conversionRate) {
   let convertedDollar = userDollarInput * conversionRate;
   return convertedDollar;
@@ -55,6 +49,30 @@ function countryName(counCode) {
   return countryName;
 }
 
+function notCurrency(counCode) {  
+  if (counCode === "AED") {
+    return true;
+  } else if (counCode === "AFN") {
+    return true;
+  } else if (counCode === "ALL") {
+    return true;
+  } else if (counCode === "AMD") {
+    return true;
+  } else if (counCode === "ANG") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function clearFields() {  
+  $('#usd-amount').val("");
+  $('show-conversion-rate').val("");
+  $('show-conversion-amount').val("");
+}
+
+
+
 function getElements(response, countryCode, dollarAmount) {  
   let countryCodeInput = countryCode;
   let dollarAmountInput = dollarAmount;
@@ -72,19 +90,23 @@ function getElements(response, countryCode, dollarAmount) {
 
 $(document).ready(function () {
   $('#currency-conversion').submit(function (event) {
-    let countryCodeInput = $("input:radio[name=countryChoice]:checked").val();           
+    let countryCodeInput = $("input:radio[name=countryChoice]:checked").val();
     let dollarAmountInput = parseFloat($('#usd-amount').val());
     event.preventDefault();    
-    clearFields();     
-    if (notANum(dollarAmountInput) === false) {
-      CurrencyService.getCurrency()
-        .then(function(response) {
-          getElements(response, countryCodeInput, dollarAmountInput);
-        });        
-    } else {
-      $('.show-conversion-rate').text(``);
-      $('.show-conversion-amount').text(`Please input a number to receive a conversion`);
-    } 
+    clearFields();
+    if (notCurrency(countryCodeInput) === false) {
+      $('.show-conversion-rate').text(`That currency does not exist`);
+    } else {     
+      if (notANum(dollarAmountInput) === false) {
+        CurrencyService.getCurrency()
+          .then(function(response) {
+            getElements(response, countryCodeInput, dollarAmountInput);
+          });        
+      } else {
+        $('.show-conversion-rate').text(``);
+        $('.show-conversion-amount').text(`Please input a number to receive a conversion`);
+      } 
+    }
   });
 });
 

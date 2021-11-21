@@ -7,9 +7,8 @@
 }
 
 .container {    
-  background-color: beige;
-  border-width: 3px;
-  border-color: black;
+  background-color: beige;  
+  border-radius: 10px;
   padding: 5px;
 }
 
