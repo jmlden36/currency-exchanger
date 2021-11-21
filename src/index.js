@@ -12,8 +12,7 @@ function notANum(userDollarInput) {
   }
 }
 
-function clearFields() {
-  $('#country-code').val("");
+function clearFields() {  
   $('#usd-amount').val("");
   $('show-conversion-rate').val("");
   $('show-conversion-amount').val("");
@@ -64,7 +63,7 @@ function getElements(response, countryCode, dollarAmount) {
   let convertedDollars = dollarConvert(dollarAmountInput, conversionRate);
   let countryNamePicked = countryName(countryCodeInput);
   let currencyNamePicked = currencyName(countryCodeInput);  
-  if (response.conversion_rates) {
+  if (response.result === "success") {
     $('.show-conversion-rate').text(`The conversion rate is $1 USD : $${conversionRate} ${currencyNamePicked}`); 
     $('.show-conversion-amount').text(`$${dollarAmount} USD in ${countryNamePicked} is $${convertedDollars} ${currencyNamePicked}`);   
   } else {
@@ -81,13 +80,14 @@ $(document).ready(function () {
     console.log(notANum(dollarAmountInput));
     event.preventDefault();    
     clearFields();     
-    if (notANum(dollarAmountInput) === false) {       
+    if (notANum(dollarAmountInput) === false) {
       CurrencyService.getCurrency()
         .then(function(response) {
           console.log(response);
           getElements(response, countryCodeInput, dollarAmountInput);
         });
     } else {
+      $('.show-conversion-rate').text(``);
       $('.show-conversion-amount').text(`Please input a number to receive a conversion`);
     } 
   });
