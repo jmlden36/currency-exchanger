@@ -7,6 +7,8 @@
 ## Technologies Used
 
 * _JavaScript_
+* _CSS_
+* _HTML_
 * _webpack_
 * _npm_
 * _jest_
@@ -15,6 +17,7 @@
 * _eslint_
 * _Git_
 * _dotenv-webpack_
+* _ExchangeRate-API_
 
 ## Description
 
