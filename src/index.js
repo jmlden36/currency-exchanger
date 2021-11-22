@@ -83,8 +83,10 @@ function getElements(response, countryCode, dollarAmount) {
     let currencyNamePicked = currencyName(countryCodeInput);
     $('.show-conversion-rate').text(`The conversion rate is $1 USD : $${conversionRate} ${currencyNamePicked}`); 
     $('.show-conversion-amount').text(`$${dollarAmount} USD in ${countryNamePicked} is $${convertedDollars} ${currencyNamePicked}`);   
-  } else {
+  } else if (response['error-type']) {
     $('.showErrors').text(`There was an error: ${response['error-type']}`);
+  } else {
+    $('.showErrors').text(`There was an error: Failed to fetch`);
   }
 }
 
