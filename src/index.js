@@ -76,6 +76,7 @@ function clearFields() {
 function getElements(response, countryCode, dollarAmount) {  
   let countryCodeInput = countryCode;
   let dollarAmountInput = dollarAmount;
+
   if (response.result === "success") {
     let conversionRate = response.conversion_rates[countryCodeInput];
     let convertedDollars = dollarConvert(dollarAmountInput, conversionRate);
@@ -86,8 +87,8 @@ function getElements(response, countryCode, dollarAmount) {
   } else if (response['error-type']) {
     $('.showErrors').text(`There was an error: ${response['error-type']}`);
   } else {
-    $('.showErrors').text(`There was an error: Failed to fetch`);
-  }
+    $('.showErrors').text(`There was an error: Failed to fetch`);  
+  } 
 }
 
 $(document).ready(function () {
